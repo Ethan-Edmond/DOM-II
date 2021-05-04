@@ -30,16 +30,16 @@ Fun Bus wants you to make their site more interactive. They are relying on you t
   * `keydown` X
   * `wheel` X
   * `load` X
-  * `focus`
+  * `focus` X
   * `resize` X
   * `scroll` X
   * `select` X
   * `dblclick` X
-  * `drag / drop`
+  * `drag / drop` X
 
 Note: Drag and drop is a bit more advanced than the others: it's not actually a single type of event but several types that need to work together.
 
-* [ ] Nest two similar events somewhere in the site and prevent the event propagation properly. Remember not all event types bubble.
+* [x] Nest two similar events somewhere in the site and prevent the event propagation properly. Remember not all event types bubble.
 * [x] Stop the navigation items from refreshing the page by using `preventDefault()`
 
 ### Task 3: Stretch

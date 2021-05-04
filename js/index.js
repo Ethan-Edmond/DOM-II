@@ -1,4 +1,3 @@
-// Your code goes here
 const links = document.querySelectorAll('.nav-link');
 links.forEach(function(link){
   link.addEventListener("mouseover", (event) => {
@@ -38,6 +37,7 @@ links.forEach(function(link){
         header.style.fontSize = "3.2rem";
       }
       bigWords = !bigWords;
+      event.stopPropagation();
     });
   }
   headlines.forEach(setTransitionNdoublebump);
@@ -49,13 +49,19 @@ function selectRandomize(event){
     tempString += alphabet[Math.floor(Math.random() * 26)];
   }
   event.target.value = tempString;
-  event.stopPropagation();
 }
 let first = document.createElement("input");
 first.style.type = "text";
 first.value = "asdfadf";
 document.body.append(first);
 first.addEventListener("select", selectRandomize);
+
+first.addEventListener("focus", (event) => {
+  first.style.border = "1px solid red";
+});
+first.addEventListener("blur", (event) => {
+  first.style.border = "";
+});
 
 // this is so horrible
 function fontColorRand(event){
@@ -68,11 +74,9 @@ document.addEventListener("keydown", fontColorRand);
 function wheelZoom(event){
   oldSize = parseFloat(event.target.style.fontSize);
   event.target.style.fontSize = `${oldSize - (event.deltaY * 0.004)}rem`;
-  console.log(oldSize);
   event.preventDefault();
 }
 const paras = document.querySelectorAll("p");
-console.log(paras);
 paras.forEach((para) => {
   para.style.fontSize = "1.5rem";
   para.addEventListener("wheel", wheelZoom);
@@ -96,3 +100,51 @@ window.addEventListener("resize", (event) => {
   headlineX.textContent = document.body.scrollWidth;
   headlineY.textContent = document.body.scrollHeight;
 });
+
+// pointless widget
+let cardHolder = document.createElement("div");
+cardHolder.style.width = "100%";
+cardHolder.style.height = "80px";
+cardHolder.style.backgroundColor = "white";
+cardHolder.style.border = "1px solid grey";
+cardHolder.style.display = "flex";
+document.body.append(cardHolder);
+let draggedCard;
+for (let i = 0; i < 7; i++){
+  let cardContainer = document.createElement("div");
+  cardContainer.style.height = "100%";
+  cardContainer.style.width = "25%";
+  cardContainer.classList.add("card-container");
+  let card = document.createElement("div");
+  card.style.height = "100%";
+  card.style.width = "100%";
+  card.style.backgroundColor = `hsl(${(i * 360) / 8}, 100%, 50%)`;
+  card.draggable = "true";
+  card.classList.add("card");
+  cardHolder.append(cardContainer);
+  cardContainer.append(card);
+  card.addEventListener("dragstart", (event) => {
+    draggedCard = event.target;
+    event.stopPropagation();
+  });
+  card.addEventListener("dragenter", (e) => e.preventDefault());
+  card.addEventListener("dragover", (e) => e.preventDefault());
+  card.addEventListener("drop", (event) => {
+    let parent1 = event.target.parentNode;
+    let parent2 = draggedCard.parentNode;
+    parent1.removeChild(event.target);
+    parent2.removeChild(draggedCard);
+    parent1.appendChild(draggedCard);
+    parent2.appendChild(event.target);
+    draggedCard = null;
+  });
+}
+
+
+let sections = document.querySelectorAll(".container.home header, .container.home section");
+sections.forEach((child) => {
+  child.addEventListener("dblclick", (event) =>{
+    child.style.backgroundColor = "red";
+  });
+});
+console.log(sections);
