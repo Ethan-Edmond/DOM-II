@@ -44,7 +44,7 @@ Note: Drag and drop is a bit more advanced than the others: it's not actually a 
 
 ### Task 3: Stretch
 
-* [ ] Go look at [GSAP](https://greensock.com/) and implement the animations found in that library with your custom events.
+* [x] Go look at [GSAP](https://greensock.com/) and implement the animations found in that library with your custom events.
 
 #### Stretch assignment
 

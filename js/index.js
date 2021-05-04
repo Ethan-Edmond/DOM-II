@@ -1,3 +1,4 @@
+import { gsap } from "gsap";
 const links = document.querySelectorAll('.nav-link');
 links.forEach(function(link){
   link.addEventListener("mouseover", (event) => {
@@ -57,23 +58,23 @@ document.body.append(first);
 first.addEventListener("select", selectRandomize);
 
 first.addEventListener("focus", (event) => {
-  first.style.border = "1px solid red";
+  gsap.to(first, {duration: 0.8, border: "1px solid red"});
 });
 first.addEventListener("blur", (event) => {
-  first.style.border = "";
+  gsap.to(first, {duration: 0.4, border: "0px solid red"});
 });
 
 // this is so horrible
 function fontColorRand(event){
   if (event.keyCode === 32){
-    document.body.style.color = `#${Math.floor(Math.random() * (256**3)).toString(16)}`;
+    gsap.to(document.body, {duration: 0.5, color: `#${Math.floor(Math.random() * (256**3)).toString(16)}`});
   }
 }
 document.addEventListener("keydown", fontColorRand);
 
 function wheelZoom(event){
-  oldSize = parseFloat(event.target.style.fontSize);
-  event.target.style.fontSize = `${oldSize - (event.deltaY * 0.004)}rem`;
+  let oldSize = parseFloat(event.target.style.fontSize);
+  gsap.to(event.target, {duration: 5, fontSize: `${oldSize - (event.deltaY * 0.004)}rem`});
   event.preventDefault();
 }
 const paras = document.querySelectorAll("p");
@@ -144,7 +145,7 @@ for (let i = 0; i < 7; i++){
 let sections = document.querySelectorAll(".container.home header, .container.home section");
 sections.forEach((child) => {
   child.addEventListener("dblclick", (event) =>{
-    child.style.backgroundColor = "red";
+    gsap.to(child, {duration: 0.5, backgroundColor: "red"});
   });
 });
 console.log(sections);
