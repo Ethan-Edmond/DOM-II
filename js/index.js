@@ -12,6 +12,7 @@ links.forEach(function(link){
   });
 });
 {
+  // this rotates the hue and increases alpha of the background with scroll, nice!
   let headerShowing = true;
   let header = document.querySelector('header');
   document.addEventListener("scroll", (event) => {
@@ -63,3 +64,35 @@ function fontColorRand(event){
   }
 }
 document.addEventListener("keydown", fontColorRand);
+
+function wheelZoom(event){
+  oldSize = parseFloat(event.target.style.fontSize);
+  event.target.style.fontSize = `${oldSize - (event.deltaY * 0.004)}rem`;
+  console.log(oldSize);
+  event.preventDefault();
+}
+const paras = document.querySelectorAll("p");
+console.log(paras);
+paras.forEach((para) => {
+  para.style.fontSize = "1.5rem";
+  para.addEventListener("wheel", wheelZoom);
+});
+
+// this is the worst site
+window.addEventListener("load", (event) => {
+  alert("Page has loaded");
+});
+
+let headlineX = document.createElement("h3");
+headlineX.textContent = document.body.scrollWidth;
+headlineX.style.fontSize = "3rem";
+let headlineY = document.createElement("h3");
+headlineY.textContent = document.body.scrollHeight;
+headlineY.style.fontSize = "3rem";
+document.body.append(headlineX);
+document.body.append(headlineY);
+
+window.addEventListener("resize", (event) => {
+  headlineX.textContent = document.body.scrollWidth;
+  headlineY.textContent = document.body.scrollHeight;
+});
