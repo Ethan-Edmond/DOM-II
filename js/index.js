@@ -2,10 +2,12 @@ import { gsap } from "gsap";
 const links = document.querySelectorAll('.nav-link');
 links.forEach(function(link){
   link.addEventListener("mouseover", (event) => {
-    link.style.fontSize = "2.2rem";
+    gsap.to(link, {duration: 0.5, fontSize: "2.2rem"});
+    // link.style.fontSize = "2.2rem";
   });
   link.addEventListener("mouseleave", (event) => {
-    link.style.fontSize = "1.6rem";
+    gsap.to(link, {duration: 0.5, fontSize: "1.6rem"});
+    // link.style.fontSize = "1.6rem";
   });
   link.addEventListener("click", (event) => {
     event.preventDefault();
@@ -131,12 +133,14 @@ for (let i = 0; i < 7; i++){
   card.addEventListener("dragenter", (e) => e.preventDefault());
   card.addEventListener("dragover", (e) => e.preventDefault());
   card.addEventListener("drop", (event) => {
-    let parent1 = event.target.parentNode;
-    let parent2 = draggedCard.parentNode;
-    parent1.removeChild(event.target);
-    parent2.removeChild(draggedCard);
-    parent1.appendChild(draggedCard);
-    parent2.appendChild(event.target);
+    if (event.target !== draggedCard){
+      let parent1 = event.target.parentNode;
+      let parent2 = draggedCard.parentNode;
+      parent1.removeChild(event.target);
+      parent2.removeChild(draggedCard);
+      parent1.appendChild(draggedCard);
+      parent2.appendChild(event.target);
+    }
     draggedCard = null;
   });
 }
@@ -148,4 +152,3 @@ sections.forEach((child) => {
     gsap.to(child, {duration: 0.5, backgroundColor: "red"});
   });
 });
-console.log(sections);
