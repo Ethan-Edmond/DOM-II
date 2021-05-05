@@ -14,7 +14,6 @@ links.forEach(function(link){
   });
 });
 {
-  // this rotates the hue and increases alpha of the background with scroll, nice!
   let headerShowing = true;
   let header = document.querySelector('header');
   document.addEventListener("scroll", (event) => {
@@ -25,6 +24,7 @@ links.forEach(function(link){
       header.style.display = "block";
       headerShowing = true;
     }
+    // this rotates the hue and increases alpha of the background with scroll, nice!
     document.body.style.backgroundColor = `hsla(${150 + ((scrollY * 60) / document.body.scrollHeight)}, 100%, 50%, ${Math.sin((scrollY * Math.PI) / document.body.scrollHeight)})`;
   });
 }
@@ -44,6 +44,17 @@ links.forEach(function(link){
     });
   }
   headlines.forEach(setTransitionNdoublebump);
+
+  let sections = document.querySelectorAll(".container.home header, .container.home section");
+  sections.forEach((child) => {
+    child.addEventListener("dblclick", (event) =>{
+      if (child.style.backgroundColor !== "red"){
+      gsap.to(child, {duration: 0.5, backgroundColor: "red"});
+      } else {
+        gsap.to(child, {duration: 0.5, backgroundColor: "rgba(255,0,0,0)"});
+      }
+    });
+  });
 }
 function selectRandomize(event){
   let alphabet = "qwertyuiopasdfghjklzxcvbnm".split("");
@@ -146,9 +157,3 @@ for (let i = 0; i < 7; i++){
 }
 
 
-let sections = document.querySelectorAll(".container.home header, .container.home section");
-sections.forEach((child) => {
-  child.addEventListener("dblclick", (event) =>{
-    gsap.to(child, {duration: 0.5, backgroundColor: "red"});
-  });
-});
